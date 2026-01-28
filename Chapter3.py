@@ -64,6 +64,7 @@ A = [2, 4, 5, 7, 1, 2, 3, 6]
 #Cau 1
 def findMax(arr,l, r):
     if l == r:
+        print(arr[l])
         return l
     else:
         m = (l+r)//2
