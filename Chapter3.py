@@ -55,7 +55,7 @@ def merge(A, p, q, r):
             A[k] = R[j]
             j += 1
 
-A = [2, 4, 5, 7, 1, 2, 3, 6]
+A = [2, 4, 5, 7, 1, 2, 3, 6,9,33]
 # mergeSort(A, 0, len(A) - 1)
 # print(A)
 
@@ -64,16 +64,34 @@ A = [2, 4, 5, 7, 1, 2, 3, 6]
 #Cau 1
 def findMax(arr,l, r):
     if l == r:
-        print(arr[l])
-        return l
+            return r
+    m = (r+l)//2
+    i = findMax(arr,m+1,r)
+    j = findMax(arr,l,m)
+    if arr[i]>arr[j]:
+        return i
     else:
-        m = (l+r)//2
-        i = findMax(arr,l,m)
-        j = findMax(arr,m+1,r)
-        if(arr[i]>arr[j]):
-            return arr[i]
-        else:
-            return arr[j]
-
+        return j
 rs =findMax(A, 0, len(A)-1)
-print(rs)
+# print(rs)
+
+##Brute-Force 
+def findMax(arr):
+    max = -float('inf')
+    for i in range(len(arr)):
+        if (arr[i]>max):
+            max = arr[i]
+    return max
+# print(findMax(A))
+
+
+#Cau 2
+def pown(a,n):
+    if n ==0:
+        return 1
+    elif n%2==0:
+        return pown(a,n/2)*pown(a,n/2)
+    else:
+        return a*pown(a,(n-1)/2)*pown(a,(n-1)/2)
+
+print(pown(6,100))
