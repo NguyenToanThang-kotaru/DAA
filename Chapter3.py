@@ -87,11 +87,86 @@ def findMax(arr):
 
 #Cau 2
 def pown(a,n):
-    if n ==0:
+    if n == 0:
         return 1
-    elif n%2==0:
-        return pown(a,n/2)*pown(a,n/2)
+    half = pown(a, n // 2)
+    if n % 2 == 0:
+        return half * half
     else:
-        return a*pown(a,(n-1)/2)*pown(a,(n-1)/2)
+        return a * half * half
 
-print(pown(6,100))
+# print(pown(6,100))
+
+def brute_force_pown(a,n):
+    rs = 1
+    for i in range(n):
+        rs = rs*a
+    return rs
+
+# print(brute_force_pown(6,100))
+
+#==================Cau 3
+def rearrange_dc(a):
+    if len(a) <= 1:
+        return a
+
+    mid = len(a) // 2
+    left = rearrange_dc(a[:mid])
+    right = rearrange_dc(a[mid:])
+
+    neg = takePosOrNeg(left, True) + takePosOrNeg(right, True)
+    pos = takePosOrNeg(right, False) + takePosOrNeg(left, False)
+    return neg + pos
+
+
+def takePosOrNeg(arr,isNeg=False):
+    pos = []
+    for i in range(len(arr)):
+        if isNeg == False:
+            if arr[i] >= 0:
+                pos.append(arr[i])
+        else:
+            if arr[i] <0:
+                pos.append(arr[i])
+    return pos
+
+def rearrange(a):
+    i, j = 0, len(a) - 1
+
+    while i < j:
+        if a[i] < 0:
+            i += 1
+        elif a[j] >= 0:
+            j -= 1
+        else:
+            a[i], a[j] = a[j], a[i]
+
+
+a = [3, -1, 4, -5, 2, -6]
+# print(rearrange_dc(a))
+
+##==============Cau 4
+def closest_pair(A, l, r):
+    if r - l < 2:
+        return float('inf'), None
+    if r - l == 2:
+        return A[l+1] - A[l], (l, l+1)
+
+    mid = (l + r) // 2
+
+    dL, pL = closest_pair(A, l, mid)
+    dR, pR = closest_pair(A, mid, r)
+
+    dBest, pBest = (dL, pL) if dL <= dR else (dR, pR)
+
+    dCross = A[mid] - A[mid-1]
+    if dCross < dBest:
+        return dCross, (mid-1, mid)
+
+    return dBest, pBest
+
+a=  sorted(a)
+print(a)
+print(closest_pair(a,0,len(a)))
+
+        
