@@ -68,3 +68,12 @@
 
 
 # print(closest_pair_k(p))
+
+# def powan(a,n):
+#     rs = 1
+#     for i in range(0,n,1):
+#         rs = rs*a
+#         print(i)
+#     return rs
+
+# print(powan(12,2))
